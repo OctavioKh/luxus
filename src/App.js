@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import Directory from './components/directory/directory.component';
 
-function App() {
+
+const App = () => {
+  const categorias = [
+    { id: 1, title: "SNEAKERS", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+    { id: 2, title: "CLOTHING", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+    { id: 3, title: "EYEWEAR", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+    { id: 4, title: "ACCESORIES", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+
+    { id: 5, title: "MEN", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+    { id: 6, title: "WOMEN", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+    // { id: 6, title: "WOMEN", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <Directory categories={categorias}/>
   );
-}
+};
 
 export default App;
