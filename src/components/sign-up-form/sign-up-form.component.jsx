@@ -65,7 +65,6 @@ const SignUpForm = () => {
         <FormInput
         label="Name"
           type="text"
-        //   placeholder="ayo"
           required
           onChange={handleChange}
           name="displayName"
@@ -74,7 +73,6 @@ const SignUpForm = () => {
         <FormInput
         label="E-mail"
           type="email"
-        //   placeholder="ayo"
           required
           onChange={handleChange}
           name="email"
@@ -83,7 +81,6 @@ const SignUpForm = () => {
          <FormInput
         label="Password"
           type="password"
-        //   placeholder="ayo"
           required
           onChange={handleChange}
           name="password"
@@ -92,7 +89,6 @@ const SignUpForm = () => {
          <FormInput
         label="Confirm Password"
           type="password"
-        //   placeholder="ayo"
           required
           onChange={handleChange}
           name="confirmPassword"

@@ -6,11 +6,10 @@ import Button from "../button/button.component";
 import {
   signInWithGooglePopup,
   createUserDocumentFromAuth,
-  signInAuthUserWithEmailAndPassword
+  signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 
-
-import './sign-in-form.styles.scss'
+import "./sign-in-form.styles.scss";
 
 const defaultFormFields = {
   email: "",
@@ -19,7 +18,7 @@ const defaultFormFields = {
 
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {  email, password } = formFields;
+  const { email, password } = formFields;
 
   console.log(formFields);
 
@@ -29,35 +28,31 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
-    // const userDocRef =
-     await createUserDocumentFromAuth(user);
-    // createUserDocumentFromAuth(user);
-    // console.log(user);
-    // alert("succes!");
+    await createUserDocumentFromAuth(user);
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-     const response = await signInAuthUserWithEmailAndPassword(email, password);
-     console.log(response)
+      const response = await signInAuthUserWithEmailAndPassword(
+        email,
+        password
+      );
+      console.log(response);
       resetFormFields();
     } catch (error) {
-switch(error.code) {
-case 'auth/wrong-password':
-  alert('incorrect password');
-  break;
-  case 'auth/user-not-found':
-    alert('no user assocciated with this email');
-  break;
-  default: console.log(error)
-
-}
-console.log(error)
-
-
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("incorrect password");
+          break;
+        case "auth/user-not-found":
+          alert("no user assocciated with this email");
+          break;
+        default:
+          console.log(error);
+      }
+      console.log(error);
     }
   };
 
@@ -71,31 +66,28 @@ console.log(error)
       <h2> Already have an account?</h2>
       <span> Sign in with your email and password</span>
       <form onSubmit={handleSubmit}>
-       
-      
         <FormInput
-        label="E-mail"
+          label="E-mail"
           type="email"
-        //   placeholder="ayo"
           required
           onChange={handleChange}
           name="email"
           value={email}
         />
-         <FormInput
-        label="Password"
+        <FormInput
+          label="Password"
           type="password"
-        //   placeholder="ayo"
           required
           onChange={handleChange}
           name="password"
           value={password}
         />
         <div className="buttons-container">
-        <Button type="submit">Sign In</Button>
-       <Button type="submit" buttonType='google' onClick={signInWithGoogle}>Google Sign In</Button>
+          <Button type="submit">Sign In</Button>
+          <Button type="submit" buttonType="google" onClick={signInWithGoogle}>
+            Google Sign In
+          </Button>
         </div>
-      
       </form>
     </div>
   );
