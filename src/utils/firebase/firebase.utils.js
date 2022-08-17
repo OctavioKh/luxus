@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp, 
+import { initializeApp
   // getRedirectResult
  } from "firebase/app";
 import {
@@ -7,7 +7,8 @@ import {
   signInWithRedirect,
   signInWithPopup,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 // import { useEffect } from "react";
@@ -77,3 +78,9 @@ if (!email || !password) return;
 
  return await createUserWithEmailAndPassword(auth, email, password)
 }
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+  
+   return await signInWithEmailAndPassword(auth, email, password)
+  }

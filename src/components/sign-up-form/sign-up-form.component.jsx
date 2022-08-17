@@ -12,7 +12,7 @@ import {
 import './sign-up-form.styles.scss'
 
 const defaultFormFields = {
-  displayname: "",
+  displayName: "",
   email: "",
   password: "",
   confirmPassword: "",
@@ -20,7 +20,7 @@ const defaultFormFields = {
 
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { displayname, email, password, confirmPassword } = formFields;
+  const { displayName, email, password, confirmPassword } = formFields;
 
   console.log(formFields);
 
@@ -39,7 +39,7 @@ const SignUpForm = () => {
         email,
         password
       );
-      await createUserDocumentFromAuth(user, { displayname });
+      await createUserDocumentFromAuth(user, { displayName });
       resetFormFields();
       console.log(user);
     } catch (error) {
@@ -68,8 +68,8 @@ const SignUpForm = () => {
         //   placeholder="ayo"
           required
           onChange={handleChange}
-          name="displayname"
-          value={displayname}
+          name="displayName"
+          value={displayName}
         />
         <FormInput
         label="E-mail"
