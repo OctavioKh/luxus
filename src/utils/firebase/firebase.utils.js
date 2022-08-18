@@ -1,5 +1,5 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp  } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithRedirect,
@@ -8,7 +8,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
@@ -43,17 +43,14 @@ export const signInWithGoogleRedirect = () =>
 export const db = getFirestore();
 
 export const createUserDocumentFromAuth = async (
-  userAuth, additionalInformation = {}
-  ) => {
-if(!userAuth) return;
+  userAuth,
+  additionalInformation = {}
+) => {
+  if (!userAuth) return;
 
   const userDocRef = doc(db, "users", userAuth.uid);
 
-  // console.log(userDocRef);
-
   const userSnapshot = await getDoc(userDocRef);
-  // console.log(userSnapshot);
-  // console.log(userSnapshot.exists());
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
@@ -74,20 +71,17 @@ if(!userAuth) return;
   return userDocRef;
 };
 
-
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
-if (!email || !password) return;
-
- return await createUserWithEmailAndPassword(auth, email, password)
-}
+  if (!email || !password) return;
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
 
 export const signInAuthUserWithEmailAndPassword = async (email, password) => {
   if (!email || !password) return;
-  
-   return await signInWithEmailAndPassword(auth, email, password)
-  }
+  return await signInWithEmailAndPassword(auth, email, password);
+};
 
-  export const signOutUser = async () => 
-  await signOut(auth);
+export const signOutUser = async () => await signOut(auth);
 
-  export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
+export const onAuthStateChangedListener = (callback) =>
+  onAuthStateChanged(auth, callback);
