@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+// import { async } from "@firebase/util";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -10,10 +10,20 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  getDocs,
+  setDoc,
+  collection,
+  writeBatch,
+  query, 
+  // where
+} from "firebase/firestore";
+  
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -24,6 +34,17 @@ const firebaseConfig = {
   messagingSenderId: "895257756336",
   appId: "1:895257756336:web:8adf54615c67a8f9f23175",
 };
+
+
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+//   authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+//   projectId: 'crwn-clothing-db-98d4d',
+//   storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+//   messagingSenderId: '626766232035',
+//   appId: '1:626766232035:web:506621582dab103a4d08d6',
+// };
+
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
@@ -41,6 +62,73 @@ export const signInWithGoogleRedirect = () =>
   signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
+
+
+
+
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
+  const batch = writeBatch(db);
+  const collectionRef = collection(db, collectionKey);
+
+  objectsToAdd.forEach((object) => {
+    const docRef = doc(collectionRef, object.title.toLowerCase());
+    batch.set(docRef, object);
+    
+  });
+  await batch.commit();
+  console.log("done");
+};
+
+export const getCategoriesAndDocuments = async () => {
+  const collectionRef = collection(db, 'categories');
+  const q = query(collectionRef);
+  const querySnapshot = await getDocs(q);
+
+  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+    const { title, items } = docSnapshot.data();
+    acc[title.toLowerCase()] = items;
+    console.log("dSNAP", acc)
+
+    return acc;
+  }, {});
+  return categoryMap;
+};
+
+export const getCategs = async () => {
+ const collRef = collection(db, 'categs' );
+ const q1 = query(collRef);
+const dSnapshot = await getDocs(q1);
+
+const cateMap = dSnapshot.docs.reduce((acc1, dSnapshot) => {
+  const { title, categorias } = dSnapshot.data();
+  acc1[title] = categorias;
+  const externo = categorias;
+  console.log("ext:", externo)
+  return acc1; 
+},{})
+return cateMap;
+};
+
+
+
+// export const menus = () => {
+//   const ayooo
+// }
+
+// .then((doc) => {
+//   console.log({...doc.data()})
+// })
+
+
+
+// getCategs();
+
+
+
+
 
 export const createUserDocumentFromAuth = async (
   userAuth,
@@ -85,3 +173,38 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// console.log("1st", {...acc});
+    
+// console.log("acc", acc);
+// const newArray = [acc].map((item, index) => ({index, ...item}));
+// console.log("last", newArray);
+
+// export const getCates = async () => {
+//   const catesRef = collection(db, 'cates' );
+//   const q1 = query(catesRef);
+
+//   const querySnapshot1 = await getDocs(q1);
+//   const cateMap = querySnapshot1.docs.reduce((acc1, docSnapshot1) => {
+//     const {title, items} = docSnapshot1.data();
+//     acc1[title.toLowerCase()] = items;
+//     console.log("acc1", {...acc1})
+
+//   }, {});
+//   return  cateMap;
+// }

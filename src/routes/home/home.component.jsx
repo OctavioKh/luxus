@@ -1,21 +1,22 @@
 import Directory from "../../components/directory/directory.component";
 import { Outlet } from "react-router-dom";
+// import { useContext } from "react";
+// import { CategoriesContext } from "../../contexts/categories.context";
+// import { useState } from "react";
+
 
 
 const Home = () => {
-  const categorias = [
-    { id: 1, title: "SNEAKERS", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-    { id: 2, title: "CLOTHING", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-    // { id: 3, title: "EYEWEAR", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-    { id: 4, title: "ACCESORIES", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-    { id: 5, title: "MEN", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-    { id: 6, title: "WOMEN", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-    // { id: 6, title: "WOMEN", imgSrc: 'https://media.architecturaldigest.com/photos/5dcde0245ff5e60008e76f52/master/w_1600,c_limit/Osofsky_Oct19-571.jpg' },
-  ];
+// const { categoriesMap} = useContext(CategoriesContext)
+// const [categorixs] = useState({...categoriesMap});
 
+// console.log("ayo",categoriesMap);
+
+  // console.log("foo",categorias);
+  // console.log("bar",categorixs);
   return (
       <div>
-   <Directory categories={categorias}/>
+   <Directory/>
 <Outlet/>
       </div>
   );
