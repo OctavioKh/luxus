@@ -22,7 +22,7 @@ const categories = [
     title: "OFF WHITE",
     imageUrl:
       "https://cdn-images.farfetch-contents.com/14/74/91/97/14749197_25592101_1000.jpg",
-      route: "shop/offwhite"
+      route: "shop/off-white"
   },
   {
     id: 4,
