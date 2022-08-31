@@ -100,7 +100,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
@@ -117,6 +117,18 @@ export const signOutUser = async () => await signOut(auth);
 
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
+
+export const getCurrentUser = () => {
+return new Promise((resolve,reject) => {
+  const unsusbscribe = onAuthStateChanged(auth, (userAuth) => {
+    unsusbscribe();
+    resolve(userAuth);
+  }, reject);
+});
+};
+
+
+
 
 // const firebaseConfig = {
 //   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',

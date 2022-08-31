@@ -8,14 +8,14 @@ import Category from '../category/category.component';
 
 // import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.utils';
 
-import { fetchCategoriesAsync } from '../../store/categories/categories.action';
+import { fetchCategoriesStart } from '../../store/categories/categories.action';
 
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(fetchCategoriesAsync());
+      dispatch(fetchCategoriesStart());
   }, []);
 
   return (
