@@ -1,16 +1,21 @@
-import { useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
-import { CategoriesContext } from "../../contexts/categories.context";
-import ProductCard from "../../components/product-card/product-card.component";
+import { useState, useEffect, Fragment } from 'react';
+import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
 
-import "./category.styles.scss";
+import ProductCard from '../../components/product-card/product-card.component';
+import Spinner from '../../components/spinner/spinner.component';
+import { selectCategoriesIsLoading, selectCategoriesMap } from '../../store/categories/categories.selector';
+
+import { CategoryContainer, Title, Backs, BackSpan } from './category.styles';
+
+// import "./category.styles.scss";
 
 const Category = () => {
   const { category } = useParams();
-  const { categoriesMap } = useContext(CategoriesContext);
+  const categoriesMap = useSelector(selectCategoriesMap);
+  const isLoading = useSelector(selectCategoriesIsLoading);
   const [products, setProducts] = useState(categoriesMap[category]);
+ 
   const navigate = useNavigate();
 
   const onNavigateHomeHandler = () => navigate("/");
@@ -21,26 +26,35 @@ const Category = () => {
   }, [category, categoriesMap]);
 
   return (
-      <>
+      <Fragment>
     
-       <h2 className="category-title">{category.toUpperCase()}</h2>
-       <h6 className="backs">
-         <span  onClick={onNavigateHomeHandler}>
-         &larr; Categories 
-         </span> 
-       
-         <span onClick={onNavigateShopHandler}>&larr; Shop
-         </span>
-         
-        </h6>
+       <Title>{category.toUpperCase()}</Title>
+       {isLoading ? (
+         <Fragment> <Spinner/> </Fragment>) : 
+       (
+       <Fragment>
+          <Backs>
+        <BackSpan  onClick={onNavigateHomeHandler}>
+        &larr; Categories 
+        </BackSpan> 
       
-    <div className="category-container">
-      {products &&
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-    </div>
-    </>
+        <BackSpan onClick={onNavigateShopHandler}>&larr; Shop
+        </BackSpan>
+        
+       </Backs>
+     
+   <CategoryContainer>
+   {products &&
+       products.map((product) => (
+         <ProductCard key={product.id} product={product} />
+       ))}
+   </CategoryContainer>
+       </Fragment>
+      
+    )}
+       
+    
+    </Fragment>
   );
 };
 

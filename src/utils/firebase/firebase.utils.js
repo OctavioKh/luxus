@@ -21,9 +21,6 @@ import {
   query, 
   // where
 } from "firebase/firestore";
-  
-
-
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -35,24 +32,13 @@ const firebaseConfig = {
   appId: "1:895257756336:web:8adf54615c67a8f9f23175",
 };
 
-
-// const firebaseConfig = {
-//   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
-//   authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
-//   projectId: 'crwn-clothing-db-98d4d',
-//   storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
-//   messagingSenderId: '626766232035',
-//   appId: '1:626766232035:web:506621582dab103a4d08d6',
-// };
-
-
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
 const googleProvider = new GoogleAuthProvider();
 
 googleProvider.setCustomParameters({
-  prompt: "select_account",
+  prompt: 'select_account',
 });
 
 export const auth = getAuth();
@@ -63,72 +49,30 @@ export const signInWithGoogleRedirect = () =>
 
 export const db = getFirestore();
 
-
-
-
 export const addCollectionAndDocuments = async (
   collectionKey,
-  objectsToAdd
+  objectsToAdd,
+  field
 ) => {
-  const batch = writeBatch(db);
   const collectionRef = collection(db, collectionKey);
+  const batch = writeBatch(db);
 
   objectsToAdd.forEach((object) => {
     const docRef = doc(collectionRef, object.title.toLowerCase());
     batch.set(docRef, object);
-    
   });
+
   await batch.commit();
-  console.log("done");
+  console.log('done');
 };
 
 export const getCategoriesAndDocuments = async () => {
   const collectionRef = collection(db, 'categories');
   const q = query(collectionRef);
+
   const querySnapshot = await getDocs(q);
-
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    console.log("dSNAP", acc)
-
-    return acc;
-  }, {});
-  return categoryMap;
+return querySnapshot.docs.map(doc => doc.data())
 };
-
-export const getCategs = async () => {
- const collRef = collection(db, 'categs' );
- const q1 = query(collRef);
-const dSnapshot = await getDocs(q1);
-
-const cateMap = dSnapshot.docs.reduce((acc1, dSnapshot) => {
-  const { title, categorias } = dSnapshot.data();
-  acc1[title] = categorias;
-  const externo = categorias;
-  console.log("ext:", externo)
-  return acc1; 
-},{})
-return cateMap;
-};
-
-
-
-// export const menus = () => {
-//   const ayooo
-// }
-
-// .then((doc) => {
-//   console.log({...doc.data()})
-// })
-
-
-
-// getCategs();
-
-
-
-
 
 export const createUserDocumentFromAuth = async (
   userAuth,
@@ -174,6 +118,47 @@ export const signOutUser = async () => await signOut(auth);
 export const onAuthStateChangedListener = (callback) =>
   onAuthStateChanged(auth, callback);
 
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+//   authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+//   projectId: 'crwn-clothing-db-98d4d',
+//   storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+//   messagingSenderId: '626766232035',
+//   appId: '1:626766232035:web:506621582dab103a4d08d6',
+// };
+
+
+
+
+// export const getCategs = async () => {
+//  const collRef = collection(db, 'categs' );
+//  const q1 = query(collRef);
+// const dSnapshot = await getDocs(q1);
+
+// const cateMap = dSnapshot.docs.reduce((acc1, dSnapshot) => {
+//   const { title, categorias } = dSnapshot.data();
+//   acc1[title] = categorias;
+//   const externo = categorias;
+//   console.log("ext:", externo)
+//   return acc1; 
+// },{})
+// return cateMap;
+// };
+
+
+
+// export const menus = () => {
+//   const ayooo
+// }
+
+// .then((doc) => {
+//   console.log({...doc.data()})
+// })
+
+
+
+// getCategs();
+
 
 
 
@@ -208,3 +193,13 @@ export const onAuthStateChangedListener = (callback) =>
 //   }, {});
 //   return  cateMap;
 // }
+
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyDDU4V-_QV3M8GyhC9SVieRTDM4dbiT0Yk',
+//   authDomain: 'crwn-clothing-db-98d4d.firebaseapp.com',
+//   projectId: 'crwn-clothing-db-98d4d',
+//   storageBucket: 'crwn-clothing-db-98d4d.appspot.com',
+//   messagingSenderId: '626766232035',
+//   appId: '1:626766232035:web:506621582dab103a4d08d6',
+// };
+
