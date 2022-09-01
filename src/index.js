@@ -5,11 +5,14 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import {Provider} from 'react-redux'; 
-import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react';
+import { Elements} from '@stripe/react-stripe-js';
+
 // import { UserProvider } from "./contexts/user.context";
 // import { CategoriesProvider } from "./contexts/categories.context";
 // import { CartProvider } from "./contexts/cart.context";
 import { store, persistor } from "./store/store";
+import { stripePromise} from './utils/stripe/stripe.utils'
 
 
 
@@ -22,7 +25,10 @@ root.render(
       {/* <UserProvider> */}
         {/* <CategoriesProvider> */}
           {/* <CartProvider> */}
+          <Elements stripe={stripePromise}>
           <App />
+
+          </Elements>
           {/* </CartProvider> */}
         {/* </CategoriesProvider> */}
       {/* </UserProvider> */}
